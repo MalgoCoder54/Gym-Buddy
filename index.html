@@ -1,703 +1,1424 @@
 <!DOCTYPE html>
-<html lang="it" data-theme="dark">
+<html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Piano Allenamento — Bande 4 Sessioni</title>
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Workout">
-<meta name="theme-color" content="#0b0b0e" id="metaThemeColor">
-<meta name="description" content="Piano allenamento a 4 sessioni con bande, timer, tracking serie e supporto salvataggio come web app su iPhone">
-
-<link rel="manifest" href='data:application/manifest+json,{"name":"Piano Allenamento","short_name":"Workout","start_url":".","display":"standalone","background_color":"#0b0b0e","theme_color":"#0b0b0e","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 180%22%3E%3Crect width=%22180%22 height=%22180%22 rx=%2240%22 fill=%22%230b0b0e%22/%3E%3Crect x=%2240%22 y=%2278%22 width=%22100%22 height=%2224%22 rx=%2212%22 fill=%22none%22 stroke=%22%23c4b5ff%22 stroke-width=%226%22/%3E%3Crect x=%2230%22 y=%2272%22 width=%2210%22 height=%2236%22 rx=%225%22 fill=%22%236fe8b8%22/%3E%3Crect x=%22140%22 y=%2272%22 width=%2210%22 height=%2236%22 rx=%225%22 fill=%22%236fe8b8%22/%3E%3Ccircle cx=%2290%22 cy=%2252%22 r=%2214%22 fill=%22none%22 stroke=%22%23ffaa7a%22 stroke-width=%226%22/%3E%3Cpath d=%22M90 66 L90 118%22 stroke=%22%237ac8ff%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3C/svg%3E","sizes":"180x180","type":"image/svg+xml"}]}'>
-<link rel="apple-touch-icon" href='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 180%22%3E%3Crect width=%22180%22 height=%22180%22 rx=%2240%22 fill=%22%230b0b0e%22/%3E%3Crect x=%2240%22 y=%2278%22 width=%22100%22 height=%2224%22 rx=%2212%22 fill=%22none%22 stroke=%22%23c4b5ff%22 stroke-width=%226%22/%3E%3Crect x=%2230%22 y=%2272%22 width=%2210%22 height=%2236%22 rx=%225%22 fill=%22%236fe8b8%22/%3E%3Crect x=%22140%22 y=%2272%22 width=%2210%22 height=%2236%22 rx=%225%22 fill=%22%236fe8b8%22/%3E%3Ccircle cx=%2290%22 cy=%2252%22 r=%2214%22 fill=%22none%22 stroke=%22%23ffaa7a%22 stroke-width=%226%22/%3E%3Cpath d=%22M90 66 L90 118%22 stroke=%22%237ac8ff%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3C/svg%3E'>
-
-<style id="splash-style">html { background: #0b0b0e; }</style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piano Allenamento</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-[data-theme="dark"] {
-  --bg: #0b0b0e;
-  --surface: #131318;
-  --surface2: #1a1a22;
-  --surface3: #22222c;
-  --border: rgba(255,255,255,0.05);
-  --border2: rgba(255,255,255,0.09);
-  --border3: rgba(255,255,255,0.14);
-  --text: #eeeee8;
-  --text2: #c8c8c0;
-  --muted: #7a7a72;
-  --faint: #33333c;
-  --toggle-icon: "🌙";
-  --grad-overlay1: rgba(196,181,255,0.04);
-  --grad-overlay2: rgba(111,232,184,0.03);
-}
-[data-theme="light"] {
-  --bg: #f5f4f0;
-  --surface: #ffffff;
-  --surface2: #f0efeb;
-  --surface3: #e8e7e2;
-  --border: rgba(0,0,0,0.05);
-  --border2: rgba(0,0,0,0.09);
-  --border3: rgba(0,0,0,0.14);
-  --text: #1a1a1a;
-  --text2: #3a3a3a;
-  --muted: #777770;
-  --faint: #c8c8c0;
-  --toggle-icon: "☀️";
-  --grad-overlay1: rgba(140,120,220,0.06);
-  --grad-overlay2: rgba(60,180,130,0.04);
-}
-[data-theme="dark"] {
-  --a-color: #c4b5ff; --a-glow: rgba(196,181,255,0.15); --a-bg: rgba(196,181,255,0.06); --a-border: rgba(196,181,255,0.22);
-  --b-color: #6fe8b8; --b-glow: rgba(111,232,184,0.15); --b-bg: rgba(111,232,184,0.06); --b-border: rgba(111,232,184,0.22);
-  --c-color: #ffaa7a; --c-glow: rgba(255,170,122,0.15); --c-bg: rgba(255,170,122,0.06); --c-border: rgba(255,170,122,0.22);
-  --d-color: #7ac8ff; --d-glow: rgba(122,200,255,0.15); --d-bg: rgba(122,200,255,0.06); --d-border: rgba(122,200,255,0.22);
-}
-[data-theme="light"] {
-  --a-color: #7b68d8; --a-glow: rgba(123,104,216,0.12); --a-bg: rgba(123,104,216,0.07); --a-border: rgba(123,104,216,0.22);
-  --b-color: #1ea878; --b-glow: rgba(30,168,120,0.12); --b-bg: rgba(30,168,120,0.07); --b-border: rgba(30,168,120,0.22);
-  --c-color: #d87040; --c-glow: rgba(216,112,64,0.12); --c-bg: rgba(216,112,64,0.07); --c-border: rgba(216,112,64,0.22);
-  --d-color: #3a8fd4; --d-glow: rgba(58,143,212,0.12); --d-bg: rgba(58,143,212,0.07); --d-border: rgba(58,143,212,0.22);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  transition: background .5s, color .5s;
-  overflow-x: hidden;
-}
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 0; opacity: .4;
-}
-body::after {
-  content: '';
-  position: fixed; top: -40%; left: -20%; width: 140%; height: 80%;
-  background: radial-gradient(ellipse at 30% 20%, var(--grad-overlay1) 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 40%, var(--grad-overlay2) 0%, transparent 60%);
-  pointer-events: none; z-index: 0; transition: background .5s;
-}
-.theme-toggle {
-  position: fixed; top: 20px; right: 20px; z-index: 100;
-  width: 48px; height: 48px; border-radius: 50%;
-  border: 1px solid var(--border3);
-  background: var(--surface); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; transition: all .35s cubic-bezier(.16,1,.3,1);
-  box-shadow: 0 4px 20px rgba(0,0,0,.15); backdrop-filter: blur(12px);
-}
-.theme-toggle:hover { transform: scale(1.08) rotate(15deg); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-.shell {
-  max-width: 860px; margin: 0 auto; padding: 56px 24px 140px;
-  padding-top: calc(56px + env(safe-area-inset-top));
-  padding-bottom: calc(140px + env(safe-area-inset-bottom));
-  position: relative; z-index: 1;
-}
-header { margin-bottom: 40px; animation: headerIn .8s cubic-bezier(.16,1,.3,1) both; }
-@keyframes headerIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-.eyebrow {
-  font-size: 11px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
-}
-.eyebrow::before { content: ''; width: 24px; height: 1px; background: linear-gradient(90deg, var(--a-color), transparent); }
-h1 {
-  font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 6vw, 3.8rem);
-  line-height: 1.08; color: var(--text); font-weight: 400; letter-spacing: -0.02em;
-}
-h1 em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--a-color), var(--b-color));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.header-sub { margin-top: 18px; font-size: 14px; color: var(--muted); line-height: 1.75; max-width: 620px; font-weight: 300; }
-.t1-chip {
-  background: linear-gradient(135deg, rgba(196,181,255,0.12), rgba(111,232,184,0.08));
-  border: 1px solid var(--a-border);
-  color: var(--text2); padding: 6px 14px; border-radius: 999px;
-  font-size: 11.5px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
-}
-.stats {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 24px 0 28px;
-}
-.stat {
-  background: linear-gradient(135deg, var(--surface), var(--surface2));
-  border: 1px solid var(--border2); border-radius: 18px; padding: 14px 16px;
-}
-.stat .label { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin-bottom: 8px; }
-.stat .value { font-size: 22px; font-weight: 600; color: var(--text); }
+  :root {
+    --bg: #f7f5f2;
+    --surface: #ffffff;
+    --surface2: #f0ede8;
+    --border: #e5e0d8;
+    --text: #1a1814;
+    --text2: #4a4540;
+    --muted: #9a9490;
+    --accent-a: #c0392b;
+    --accent-b: #2e7d52;
+    --accent-c: #1a5c8a;
+    --accent-d: #6b3fa0;
+    --tag-bg: #eeeae4;
+    --radius: 14px;
+    --shadow: 0 2px 16px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.10);
+  }
 
-.loop-row { display: flex; align-items: center; gap: 0; margin-bottom: 30px; flex-wrap: wrap; animation: headerIn .8s cubic-bezier(.16,1,.3,1) .1s both; }
-.loop-pill {
-  display: flex; align-items: center; gap: 9px; padding: 10px 18px; border-radius: 999px;
-  border: 1px solid var(--border2); font-size: 12.5px; font-weight: 500; cursor: pointer;
-  transition: all .35s cubic-bezier(.16,1,.3,1); background: var(--surface);
-  margin-right: 4px; margin-bottom: 8px; color: var(--muted); position: relative; overflow: hidden; outline: none;
-}
-.loop-pill::before { content: ''; position: absolute; inset: 0; border-radius: 999px; opacity: 0; transition: opacity .35s; }
-.loop-pill:hover { border-color: var(--border3); background: var(--surface2); transform: translateY(-1px); }
-.loop-pill.a { --acc: var(--a-color); --acc-glow: var(--a-glow); --acc-bg: var(--a-bg); --acc-b: var(--a-border); }
-.loop-pill.b { --acc: var(--b-color); --acc-glow: var(--b-glow); --acc-bg: var(--b-bg); --acc-b: var(--b-border); }
-.loop-pill.c { --acc: var(--c-color); --acc-glow: var(--c-glow); --acc-bg: var(--c-bg); --acc-b: var(--c-border); }
-.loop-pill.d { --acc: var(--d-color); --acc-glow: var(--d-glow); --acc-bg: var(--d-bg); --acc-b: var(--d-border); }
-.loop-pill.active { background: var(--acc-bg); border-color: var(--acc-b); color: var(--acc); box-shadow: 0 0 24px var(--acc-glow), inset 0 0 12px var(--acc-glow); }
-.loop-pill.active::before { opacity: 1; background: radial-gradient(ellipse at center, var(--acc-glow) 0%, transparent 70%); }
-.loop-letter {
-  width: 24px; height: 24px; border-radius: 50%; background: var(--faint);
-  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; transition: all .35s cubic-bezier(.16,1,.3,1);
-}
-.loop-pill.active .loop-letter { background: var(--acc); color: var(--bg); }
-.loop-arrow { font-size: 14px; color: var(--faint); margin: 0 2px 8px; align-self: center; opacity: .5; }
-.loop-repeat { font-size: 18px; color: var(--faint); margin: 0 4px 8px; align-self: center; opacity: .5; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
 
-.toolbar {
-  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
-}
-.btn {
-  border-radius: 999px; border: 1px solid var(--border2); background: var(--surface);
-  color: var(--text2); padding: 11px 14px; font: inherit; cursor: pointer;
-  transition: all .25s ease;
-}
-.btn:hover { transform: translateY(-1px); border-color: var(--border3); background: var(--surface2); }
-.btn.primary { color: var(--text); }
-.btn.ghost { color: var(--muted); }
+  /* ── LAYOUT ── */
+  .page { max-width: 780px; margin: 0 auto; padding: 48px 20px 80px; }
 
-.session { display: none; animation: sessIn .4s cubic-bezier(.16,1,.3,1) both; }
-.session.active { display: block; }
-@keyframes sessIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  /* ── HEADER ── */
+  header { margin-bottom: 44px; }
+  .eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    line-height: 1.1; color: var(--text); font-weight: 400;
+  }
+  h1 em { font-style: italic; color: var(--muted); }
+  .header-sub { margin-top: 14px; font-size: 14px; color: var(--text2); max-width: 480px; font-weight: 400; }
+  .t1-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff3cd; border: 1px solid #f0d060; color: #7a6010;
+    padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 500; margin-top: 14px;
+  }
 
-.sess-header {
-  border-radius: 20px 20px 0 0; padding: 32px 32px 26px; border: 1px solid var(--border2); border-bottom: none;
-  position: relative; overflow: hidden; transition: background .5s;
-}
-.sess-header::before {
-  content: attr(data-letter); position: absolute; right: 20px; top: -20px;
-  font-family: 'Playfair Display', serif; font-size: 140px; font-weight: 700;
-  opacity: .04; line-height: 1; color: var(--acc); pointer-events: none;
-}
-.sess-header::after {
-  content: ''; position: absolute; bottom: 0; left: 32px; right: 32px; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--acc-b), transparent);
-}
-.sess-a { --acc: var(--a-color); --acc-b: var(--a-border); background: linear-gradient(135deg, var(--a-bg), transparent 70%); }
-.sess-b { --acc: var(--b-color); --acc-b: var(--b-border); background: linear-gradient(135deg, var(--b-bg), transparent 70%); }
-.sess-c { --acc: var(--c-color); --acc-b: var(--c-border); background: linear-gradient(135deg, var(--c-bg), transparent 70%); }
-.sess-d { --acc: var(--d-color); --acc-b: var(--d-border); background: linear-gradient(135deg, var(--d-bg), transparent 70%); }
-.sess-letter { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--acc); margin-bottom: 8px; }
-.sess-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text); font-weight: 400; }
-.sess-muscles { font-size: 12.5px; color: var(--muted); margin-top: 8px; font-weight: 300; }
+  /* ── SESSION TABS ── */
+  .tab-row {
+    display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--border); padding-bottom: 0;
+  }
+  .tab-btn {
+    padding: 10px 20px; border-radius: 10px 10px 0 0;
+    border: 1px solid transparent; border-bottom: none;
+    background: transparent; font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px; font-weight: 500; color: var(--muted);
+    cursor: pointer; transition: all .2s; position: relative; top: 1px;
+    display: flex; align-items: center; gap: 8px; outline: none;
+  }
+  .tab-btn:hover { color: var(--text); background: var(--surface); }
+  .tab-btn.active {
+    background: var(--surface); color: var(--text);
+    border-color: var(--border); border-bottom-color: var(--surface);
+    font-weight: 600;
+  }
+  .tab-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor; opacity: .5;
+  }
+  .tab-btn.active .tab-dot { opacity: 1; }
+  .tab-btn[data-s="a"] { --tc: var(--accent-a); }
+  .tab-btn[data-s="b"] { --tc: var(--accent-b); }
+  .tab-btn[data-s="c"] { --tc: var(--accent-c); }
+  .tab-btn[data-s="d"] { --tc: var(--accent-d); }
+  .tab-btn[data-s="a"].active, .tab-btn[data-s="a"]:hover { color: var(--accent-a); }
+  .tab-btn[data-s="b"].active, .tab-btn[data-s="b"]:hover { color: var(--accent-b); }
+  .tab-btn[data-s="c"].active, .tab-btn[data-s="c"]:hover { color: var(--accent-c); }
+  .tab-btn[data-s="d"].active, .tab-btn[data-s="d"]:hover { color: var(--accent-d); }
 
-.session-progress {
-  margin-top: 16px; display: grid; gap: 8px;
-}
-.progress-meta {
-  display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--muted);
-}
-.progress-bar {
-  width: 100%; height: 10px; background: var(--surface3); border-radius: 999px; overflow: hidden; border: 1px solid var(--border);
-}
-.progress-fill {
-  height: 100%; width: 0%; transition: width .25s ease;
-  background: linear-gradient(90deg, var(--acc), color-mix(in srgb, var(--acc) 60%, white));
-}
+  /* ── SESSION PANEL ── */
+  .session { display: none; animation: fadeUp .3s ease both; }
+  .session.active { display: block; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
 
-.ex-list { border: 1px solid var(--border2); border-radius: 0 0 20px 20px; overflow: hidden; margin-bottom: 20px; }
-.ex-item { border-bottom: 1px solid var(--border); cursor: pointer; transition: background .2s; }
-.ex-item:last-child { border-bottom: none; }
-.ex-item:hover { background: rgba(128,128,128,0.04); }
-.ex-item.open { background: var(--surface2); }
-.ex-summary { display: flex; align-items: center; gap: 14px; padding: 16px 24px; }
-.ex-icon {
-  width: 34px; height: 34px; border-radius: 50%; background: var(--surface3); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px;
-}
-.ex-info { flex: 1; min-width: 0; }
-.ex-name { font-size: 14px; font-weight: 500; color: var(--text); }
-.ex-short { font-size: 11.5px; color: var(--muted); margin-top: 2px; font-weight: 300; }
-.ex-sets { font-size: 12px; font-weight: 600; color: var(--acc, var(--muted)); text-align: right; white-space: nowrap; }
-.ex-chevron { color: var(--faint); font-size: 10px; transition: all .3s cubic-bezier(.16,1,.3,1); margin-left: 4px; opacity: .5; }
-.ex-item.open .ex-chevron { transform: rotate(90deg); opacity: 1; }
-.ex-detail { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.16,1,.3,1), padding .3s; padding: 0 24px; }
-.ex-item.open .ex-detail { padding: 0 24px 18px 72px; }
-.ex-detail-inner { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; }
-.ex-desc p { font-size: 13px; color: var(--text2); line-height: 1.75; margin-bottom: 10px; font-weight: 300; }
-.ex-cues { list-style: none; }
-.ex-cues li { font-size: 12px; color: var(--muted); padding: 4px 0 4px 18px; position: relative; line-height: 1.6; font-weight: 300; }
-.ex-cues li::before { content: '→'; position: absolute; left: 0; color: var(--acc, var(--a-color)); font-size: 11px; top: 4px; opacity: .7; }
+  .sess-intro {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 24px; margin-bottom: 20px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    box-shadow: var(--shadow);
+  }
+  .sess-intro-left {}
+  .sess-label { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .sess-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--text); }
+  .sess-meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .sess-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .chip {
+    background: var(--tag-bg); border: 1px solid var(--border);
+    padding: 3px 10px; border-radius: 999px; font-size: 11.5px;
+    color: var(--text2); font-weight: 500;
+  }
 
-.set-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-.set-pill {
-  min-width: 42px; padding: 10px 12px; border-radius: 999px; border: 1px solid var(--border2);
-  background: var(--surface); color: var(--text2); cursor: pointer; text-align: center; font-size: 12px;
-}
-.set-pill.done { background: var(--acc, var(--a-bg)); border-color: var(--acc-b, var(--a-border)); color: var(--acc, var(--a-color)); }
-.detail-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  /* ── EXERCISE CARD ── */
+  .ex-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 12px;
+    overflow: hidden; box-shadow: var(--shadow);
+    transition: box-shadow .2s;
+  }
+  .ex-card:hover { box-shadow: var(--shadow-lg); }
 
-.mini-card {
-  min-width: 150px; border: 1px solid var(--border2); border-radius: 14px; padding: 12px 14px;
-  background: linear-gradient(135deg, var(--surface), var(--surface2));
-}
-.mini-card .mini-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: 8px; }
-.mini-card .mini-value { font-size: 14px; color: var(--text); }
+  .ex-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px; cursor: pointer; user-select: none;
+  }
+  .ex-number {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; flex-shrink: 0;
+    background: var(--acc-bg); color: var(--accent); border: 1.5px solid var(--acc-border);
+  }
+  .ex-number.warm { background: #fff8e6; color: #c47a00; border-color: #f0d080; font-size: 15px; }
+  .ex-number.cool { background: #e8f4ff; color: #1a7ab0; border-color: #90c8f0; font-size: 15px; }
+  .ex-number.core { background: #f0eeff; color: #5c3fa0; border-color: #c0aff0; font-weight: 700; font-size: 11px; letter-spacing:.02em; }
 
-.note-box {
-  border-radius: 12px; padding: 16px 20px; font-size: 12.5px; line-height: 1.75;
-  color: var(--muted); border-left: 3px solid var(--acc); background: var(--surface);
-}
-.note-box strong { color: var(--text); font-weight: 600; }
-.note-box.sess-a { --acc: var(--a-color); }
-.note-box.sess-b { --acc: var(--b-color); }
-.note-box.sess-c { --acc: var(--c-color); }
-.note-box.sess-d { --acc: var(--d-color); }
+  .ex-info { flex: 1; min-width: 0; }
+  .ex-name { font-size: 14.5px; font-weight: 600; color: var(--text); }
+  .ex-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-.footer-note {
-  margin-top: 36px; padding: 28px; border-radius: 20px;
-  background: linear-gradient(135deg, var(--surface), var(--surface2));
-  border: 1px solid var(--border2); font-size: 13px; color: var(--muted); line-height: 1.85; font-weight: 300;
-}
-.footer-note h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text); margin-bottom: 12px; font-weight: 400; }
-.footer-note strong { color: var(--text); font-weight: 600; }
+  .ex-reps {
+    font-size: 13px; font-weight: 600; color: var(--accent);
+    white-space: nowrap; text-align: right; min-width: 70px;
+  }
+  .ex-reps.warm { color: #c47a00; }
+  .ex-reps.cool { color: #1a7ab0; }
 
-.timer-panel {
-  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 120;
-  margin: 0 auto; max-width: 860px;
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-  border: 1px solid var(--border3); border-radius: 22px;
-  box-shadow: 0 16px 48px rgba(0,0,0,.28); backdrop-filter: blur(16px);
-  padding: 14px 16px;
-}
-.timer-top { display:flex; justify-content:space-between; gap:12px; align-items:center; }
-.timer-kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); }
-.timer-label { font-size: 13px; color: var(--text2); margin-top: 4px; }
-.timer-value { font-size: clamp(2rem, 6vw, 3rem); font-weight: 600; color: var(--text); letter-spacing: -0.03em; }
-.timer-actions { display:flex; gap:8px; flex-wrap: wrap; margin-top: 10px; }
+  .ex-chevron {
+    color: var(--muted); font-size: 11px; transition: transform .25s;
+    flex-shrink: 0; margin-left: 4px; opacity: .5;
+  }
+  .ex-card.open .ex-chevron { transform: rotate(90deg); opacity: .8; }
 
-@media (max-width: 720px) {
-  .shell { padding: 36px 16px 140px; }
-  .stats { grid-template-columns: repeat(2, 1fr); }
-  .sess-header { padding: 24px 20px 18px; }
-  .ex-summary { padding: 14px 16px; gap: 10px; }
-  .ex-item.open .ex-detail { padding-left: 16px; }
-  .ex-detail-inner { grid-template-columns: 1fr; }
-  .theme-toggle { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 16px; }
-}
+  /* ── EXPANDED BODY ── */
+  .ex-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height .4s cubic-bezier(.16,1,.3,1);
+    border-top: 0px solid var(--border);
+  }
+  .ex-card.open .ex-body {
+    border-top: 1px solid var(--border);
+  }
+  .ex-body-inner { padding: 20px 20px 20px 66px; display: flex; gap: 24px; flex-wrap: wrap; }
+
+  .ex-desc { flex: 1; min-width: 200px; }
+  .ex-desc p { font-size: 13.5px; color: var(--text2); line-height: 1.75; margin-bottom: 10px; }
+  .ex-desc p strong { color: var(--text); }
+
+  /* recovery badge */
+  .recovery-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--tag-bg); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 6px; font-size: 12px;
+    color: var(--text2); font-weight: 500; margin-bottom: 12px;
+  }
+  .recovery-badge svg { opacity: .5; }
+
+  .cues { list-style: none; margin-top: 8px; }
+  .cues li {
+    font-size: 12.5px; color: var(--text2); padding: 4px 0 4px 18px;
+    position: relative; line-height: 1.55;
+  }
+  .cues li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-size: 11px; top: 5px;
+  }
+
+  /* ── VIDEO ── */
+  .ex-video { flex-shrink: 0; width: 260px; }
+  .video-wrap {
+    position: relative; width: 100%; padding-top: 56.25%;
+    border-radius: 10px; overflow: hidden;
+    background: #f0ede8; border: 1px solid var(--border);
+  }
+  .video-wrap iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border: none;
+  }
+  .video-label {
+    font-size: 10.5px; color: var(--muted); margin-top: 6px;
+    text-align: center; letter-spacing: .06em; text-transform: uppercase;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10.5px; font-weight: 600; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--muted);
+    margin: 24px 0 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── NOTE BOX ── */
+  .note-box {
+    border-radius: var(--radius); padding: 14px 18px;
+    font-size: 13px; line-height: 1.7; color: var(--text2);
+    border-left: 3px solid var(--accent);
+    background: var(--surface); margin-top: 16px;
+    border: 1px solid var(--border); border-left: 3px solid var(--accent);
+  }
+  .note-box strong { color: var(--text); }
+
+  /* ── SESSION COLOR VARS ── */
+  .sess-a { --accent: var(--accent-a); --acc-bg: #fdf0ef; --acc-border: #f0b0a8; }
+  .sess-b { --accent: var(--accent-b); --acc-bg: #eef7f2; --acc-border: #90d0b0; }
+  .sess-c { --accent: var(--accent-c); --acc-bg: #edf3fb; --acc-border: #90b8e0; }
+  .sess-d { --accent: var(--accent-d); --acc-bg: #f3eeff; --acc-border: #c0a0e8; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 48px; padding: 24px; border-radius: var(--radius);
+    background: var(--surface); border: 1px solid var(--border);
+    font-size: 13px; color: var(--text2); line-height: 1.8;
+    box-shadow: var(--shadow);
+  }
+  .footer h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--text); margin-bottom: 10px; }
+
+  @media (max-width: 600px) {
+    .page { padding: 28px 14px 60px; }
+    .ex-body-inner { flex-direction: column; padding-left: 20px; }
+    .ex-video { width: 100%; }
+    .tab-btn { padding: 8px 14px; font-size: 12px; }
+    h1 { font-size: 2rem; }
+  }
 </style>
 </head>
 <body>
-<button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambia tema" id="themeBtn">🌙</button>
+<div class="page">
 
-<div class="shell">
-  <header>
-    <div class="eyebrow">Piano di allenamento · Single page</div>
-    <h1>Bande 4 sessioni,<br><em>esecuzione guidata</em></h1>
-    <p class="header-sub">Stesso mood del riferimento, ma con tracking serie, timer, progressi e struttura pronta per essere salvata come web app su iPhone. A → B → C → D, poi si ricomincia.</p>
-    <span class="t1-chip">📱 Web app ready · Theme toggle · Timer integrato</span>
-  </header>
+<header>
+  <div class="eyebrow">Piano allenamento · Loop continuo A→B→C→D→A</div>
+  <h1>4 Sessioni,<br><em>ogni giorno</em></h1>
+  <p class="header-sub">Elastici con maniglie + corpo libero. Ogni sessione dura 15–18 minuti inclusi riscaldamento e stretching.</p>
+  <span class="t1-badge">🩸 Ottimizzato per Diabete T1 · Microcircolazione · Zona 2</span>
+</header>
 
-  <section class="stats">
-    <div class="stat"><div class="label">Sessioni</div><div class="value" id="statSessions">4</div></div>
-    <div class="stat"><div class="label">Esercizi</div><div class="value" id="statExercises">0</div></div>
-    <div class="stat"><div class="label">Serie completate</div><div class="value" id="statDone">0</div></div>
-    <div class="stat"><div class="label">Completamento</div><div class="value" id="statPct">0%</div></div>
-  </section>
-
-  <div class="loop-row">
-    <button class="loop-pill a active" onclick="show('a')"><span class="loop-letter">A</span> Push</button>
-    <span class="loop-arrow">→</span>
-    <button class="loop-pill b" onclick="show('b')"><span class="loop-letter">B</span> Pull</button>
-    <span class="loop-arrow">→</span>
-    <button class="loop-pill c" onclick="show('c')"><span class="loop-letter">C</span> Lower</button>
-    <span class="loop-arrow">→</span>
-    <button class="loop-pill d" onclick="show('d')"><span class="loop-letter">D</span> Spalle + braccia</button>
-    <span class="loop-repeat">↺</span>
-  </div>
-
-  <div class="toolbar">
-    <button class="btn primary" onclick="startQuickTimer(30)">Timer 30s</button>
-    <button class="btn primary" onclick="startQuickTimer(60)">Timer 60s</button>
-    <button class="btn primary" onclick="startQuickTimer(90)">Timer 90s</button>
-    <button class="btn ghost" onclick="resetCurrentSession()">Reset sessione</button>
-    <button class="btn ghost" onclick="resetAll()">Reset tutto</button>
-  </div>
-
-  <div id="sessionsMount"></div>
-
-  <div class="footer-note">
-    <h3>Come usarlo su iPhone</h3>
-    Apri il file in Safari, poi <strong>Condividi → Aggiungi a schermata Home</strong>. L’icona è già inclusa inline, così puoi salvarla come web app senza file extra. Lo stato delle serie viene memorizzato nel browser locale. Elegante, portatile, e senza capricci da app store.
-  </div>
+<!-- TABS -->
+<div class="tab-row">
+  <button class="tab-btn active" data-s="a" onclick="showSession('a')">
+    <span class="tab-dot"></span> A · Upper Push/Pull
+  </button>
+  <button class="tab-btn" data-s="b" onclick="showSession('b')">
+    <span class="tab-dot"></span> B · Lower Body
+  </button>
+  <button class="tab-btn" data-s="c" onclick="showSession('c')">
+    <span class="tab-dot"></span> C · Cardio Z2
+  </button>
+  <button class="tab-btn" data-s="d" onclick="showSession('d')">
+    <span class="tab-dot"></span> D · Full Body
+  </button>
 </div>
 
-<div class="timer-panel">
-  <div class="timer-top">
-    <div>
-      <div class="timer-kicker">Timer</div>
-      <div class="timer-label" id="timerLabel">Pronto</div>
+<!-- ═══════════ SESSION A ═══════════ -->
+<div class="session sess-a active" id="sess-a">
+  <div class="sess-intro">
+    <div class="sess-intro-left">
+      <div class="sess-label">Sessione A</div>
+      <div class="sess-title">Upper Body Push / Pull</div>
+      <div class="sess-meta">~18 min · Petto · Spalle · Bicipiti · Tricipiti · Core</div>
+      <div class="sess-chips">
+        <span class="chip">Corpo libero</span>
+        <span class="chip">Elastici</span>
+        <span class="chip">Sedia robusta</span>
+      </div>
     </div>
-    <div class="timer-value" id="timerValue">00:00</div>
   </div>
-  <div class="timer-actions">
-    <button class="btn primary" onclick="toggleTimerPause()" id="pauseBtn">Pausa</button>
-    <button class="btn" onclick="adjustTimer(10)">+10s</button>
-    <button class="btn" onclick="adjustTimer(-10)">-10s</button>
-    <button class="btn ghost" onclick="stopTimer()">Stop</button>
+
+  <div class="section-label">Riscaldamento</div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number warm">🔥</div>
+      <div class="ex-info">
+        <div class="ex-name">Rotazioni spalle + Arm circles</div>
+        <div class="ex-subtitle">entrambe le direzioni · progressivo</div>
+      </div>
+      <div class="ex-reps warm">90 sec</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Rotola le spalle in avanti × 10, poi all'indietro × 10. Poi grandi cerchi con le braccia tese, prima piccoli e poi sempre più ampi. Mobilizza prima di caricare.</p>
+          <ul class="cues">
+            <li>Collo rilassato, sguardo avanti</li>
+            <li>Aumenta progressivamente l'ampiezza</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/WDIpL0pjun0" title="Rotazioni spalle warm up" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">riscaldamento spalle</div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="section-label">Esercizi principali</div>
+
+  <!-- A1 Push-up -->
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">1</div>
+      <div class="ex-info">
+        <div class="ex-name">Push-up standard</div>
+        <div class="ex-subtitle">corpo rigido · gomiti a 45° · full range</div>
+      </div>
+      <div class="ex-reps">3 × max−2</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p><strong>Max−2</strong> significa fermarsi 2 ripetizioni prima del cedimento: mantieni la tecnica perfetta ogni serie. Petto, tricipiti e deltoidi anteriori.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Corpo dritto come una tavola, no bacino che cede</li>
+            <li>Gomiti a 45° dal busto, non a 90°</li>
+            <li>Variante facilitata: mani su un piano rialzato</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/IODxDxX7oi4" title="Push-up tecnica corretta" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">tecnica push-up</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A2 Pike push-up -->
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">2</div>
+      <div class="ex-info">
+        <div class="ex-name">Pike push-up</div>
+        <div class="ex-subtitle">spalle · forma a V invertita · testa verso il pavimento</div>
+      </div>
+      <div class="ex-reps">3 × 10</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Parti in posizione di plank, poi solleva il bacino formando una V. Piega i gomiti portando la testa verso il pavimento tra le mani. Isola i deltoidi in modo eccellente.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Più il bacino è alto, più lavora la spalla</li>
+            <li>Fase negativa lenta: 3 secondi in discesa</li>
+            <li>Non toccare il pavimento con la testa</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/2b5t0Cu2nQI" title="Pike push-up tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">pike push-up · spalle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A3 Dip su sedia -->
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">3</div>
+      <div class="ex-info">
+        <div class="ex-name">Dip su sedia</div>
+        <div class="ex-subtitle">tricipiti · gomiti indietro · sedia robusta</div>
+      </div>
+      <div class="ex-reps">3 × 10</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Mani sul bordo della sedia, gambe estese davanti. Scendi flettendo i gomiti fino a 90°, poi spingi su. I gomiti devono rimanere vicini al corpo, non aprirsi lateralmente.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Gomiti paralleli, non aperti</li>
+            <li>Versione facile: ginocchia piegate</li>
+            <li>Non affondare troppo: rischio spalla</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/6kALZikXxLc" title="Dip su sedia tricipiti" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">dip su sedia · tricipiti</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A4 Curl elastico -->
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">4</div>
+      <div class="ex-info">
+        <div class="ex-name">Curl bicipiti con elastico</div>
+        <div class="ex-subtitle">elastico sotto i piedi · presa supina · gomiti fermi</div>
+      </div>
+      <div class="ex-reps">3 × 12</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Metti entrambi i piedi al centro dell'elastico, larghezza anca. Tieni le maniglie in presa supina (palmi verso l'alto). Fletti i gomiti portando le mani alle spalle.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Gomiti fermi ai fianchi per tutto il movimento</li>
+            <li>Fase negativa 3 sec controllata</li>
+            <li>Sovrapponì due elastici per più resistenza</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/JTw1T9NRl4g" title="Curl bicipiti elastico" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">curl bicipiti · elastico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A5 Alzate laterali -->
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">5</div>
+      <div class="ex-info">
+        <div class="ex-name">Alzate laterali con elastico</div>
+        <div class="ex-subtitle">deltoide medio · un lato per volta · elastico sotto il piede</div>
+      </div>
+      <div class="ex-reps">2 × 15</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Tieni l'elastico sotto il piede dello stesso lato. Solleva il braccio lateralmente fino all'altezza della spalla, poi abbassa lentamente. Poi cambia lato.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 45 sec
+          </div>
+          <ul class="cues">
+            <li>Pollice verso il basso in cima (come versare acqua)</li>
+            <li>Non scrollare le spalle</li>
+            <li>Gomito leggermente flesso, non bloccato</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/iQlrRrZTrBs" title="Alzate laterali elastico" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">alzate laterali · elastico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A6 Core: Hollow hold -->
+  <div class="section-label">Core</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number core">CORE</div>
+      <div class="ex-info">
+        <div class="ex-name">Hollow hold</div>
+        <div class="ex-subtitle">lombare a terra · gambe tese · braccia sopra la testa</div>
+      </div>
+      <div class="ex-reps">3 × 20 sec</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Sdraiato, schiena lombare incollata al pavimento, solleva leggermente gambe e spalle. Versione base: ginocchia piegate. Versione avanzata: gambe tese + braccia sopra la testa.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 45 sec
+          </div>
+          <ul class="cues">
+            <li>La schiena lombare NON deve staccarsi dal pavimento</li>
+            <li>Espira tutto l'aria e tieni la contrazione</li>
+            <li>Progressione: gambe sempre più basse al suolo</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/LlDNef_Ztsc" title="Hollow hold tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">hollow hold · core</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A Cool-down -->
+  <div class="section-label">Stretching finale</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number cool">❄️</div>
+      <div class="ex-info">
+        <div class="ex-name">Stretching: petto · tricipiti · flessione avanti</div>
+        <div class="ex-subtitle">respira dentro ogni posizione · non rimbalzare</div>
+      </div>
+      <div class="ex-reps cool">3 min</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p><strong>1. Stretch petto a muro</strong> — braccio a 90°, ruota il busto. 30 sec/lato.</p>
+          <p><strong>2. Stretch tricipiti sopratesta</strong> — porta il gomito dietro la testa, spingi con l'altra mano. 30 sec/lato.</p>
+          <p><strong>3. Flessione in avanti gambe tese</strong> — da in piedi, lascia cadere il busto verso i piedi. <strong>Espira e rilassati verso il basso</strong>. 45 sec. Questo è il tuo esercizio chiave per toccarti i piedi.</p>
+          <ul class="cues">
+            <li>Non rimbalzare mai: tieni e respira</li>
+            <li>Ad ogni espirazione lasciati andare 1-2 cm in più</li>
+            <li>Ginocchia leggermente flesse se serve, poi progressivamente tese</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/g_tea8ZNk5A" title="Stretching flessibilità femorali" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">stretching femorali e flessibilità</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box sess-a">🩸 <strong>Diabete T1:</strong> misura la glicemia prima e dopo. Le sessioni di forza upper body tendono ad avere effetto variabile — tieni glucosio a portata di mano.</div>
+</div>
+
+<!-- ═══════════ SESSION B ═══════════ -->
+<div class="session sess-b" id="sess-b">
+  <div class="sess-intro">
+    <div class="sess-intro-left">
+      <div class="sess-label">Sessione B</div>
+      <div class="sess-title">Lower Body</div>
+      <div class="sess-meta">~18 min · Glutei · Quadricipiti · Femorali · Polpacci · Core</div>
+      <div class="sess-chips">
+        <span class="chip">Corpo libero</span>
+        <span class="chip">Elastici</span>
+        <span class="chip">Un gradino</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Riscaldamento</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number warm">🔥</div>
+      <div class="ex-info">
+        <div class="ex-name">Calf raises lenti + Ankle circles</div>
+        <div class="ex-subtitle">3 sec su · 3 sec giù · pompa venosa</div>
+      </div>
+      <div class="ex-reps warm">90 sec</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Sollevamenti lenti del tallone poi rotazioni complete della caviglia. Attiva la pompa venosa periferica prima di iniziare.</p>
+          <ul class="cues"><li>Entrambe le direzioni per le caviglie</li><li>Tallone sempre a contatto col suolo nelle rotazioni</li></ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/J7yBFDmFYOI" title="Ankle mobility warm up" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">mobilità caviglia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Esercizi principali</div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">1</div>
+      <div class="ex-info">
+        <div class="ex-name">Squat corpo libero</div>
+        <div class="ex-subtitle">piedi a larghezza spalle · ginocchia verso le punte</div>
+      </div>
+      <div class="ex-reps">3 × 15</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Scendi fino a cosce parallele al suolo (o più in basso se puoi). Petto aperto, sguardo avanti, talloni sempre a terra. Risalita esplosiva.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Peso sui talloni, non sulle punte</li>
+            <li>Ginocchia che seguono la direzione delle punte dei piedi</li>
+            <li>Non piegare la schiena in avanti</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/DlS-GAF8Edg" title="Squat tecnica perfetta" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">squat · tecnica</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">2</div>
+      <div class="ex-info">
+        <div class="ex-name">Affondi alternati avanti</div>
+        <div class="ex-subtitle">passo lungo · ginocchio posteriore sfiora il suolo</div>
+      </div>
+      <div class="ex-reps">3 × 10/lato</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Fai un passo lungo in avanti, scendi con il ginocchio posteriore vicino al suolo, poi torna in piedi. Alterna le gambe. Quadricipiti, glutei e femorali tutti insieme.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Il ginocchio anteriore non deve superare la punta del piede</li>
+            <li>Busto dritto per tutto il movimento</li>
+            <li>Spingi il tallone anteriore per risalire</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/WzONHuAe6BY" title="Affondi tecnica" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">affondi avanti</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">3</div>
+      <div class="ex-info">
+        <div class="ex-name">Squat sumo</div>
+        <div class="ex-subtitle">piedi larghi · punte verso l'esterno · interno coscia</div>
+      </div>
+      <div class="ex-reps">3 × 12</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Piedi più larghi delle spalle, punte verso l'esterno a 45°. Scendi tenendo le ginocchia aperte verso le punte. Lavora soprattutto l'interno coscia (adduttori) e i glutei.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Spingi le ginocchia verso l'esterno in discesa</li>
+            <li>Puoi aggiungere l'elastico sopra le ginocchia per resistenza</li>
+            <li>Pausa di 1 sec in fondo</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/qFyT2A6NP_s" title="Squat sumo tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">squat sumo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">4</div>
+      <div class="ex-info">
+        <div class="ex-name">Glute bridge con pausa</div>
+        <div class="ex-subtitle">a terra · elastico sopra le ginocchia · pausa 2 sec in cima</div>
+      </div>
+      <div class="ex-reps">3 × 12</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Sdraiato, ginocchia piegate, piedi piatti. Elastico attorno alle cosce appena sopra le ginocchia per aggiungere resistenza all'abduzione. Spingi i fianchi verso il soffitto, tieni 2 sec, scendi lentamente.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Stringi i glutei al massimo in cima</li>
+            <li>Non iperestendere la schiena lombare</li>
+            <li>Spingi le ginocchia verso l'esterno contro l'elastico</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/wPM8icPu6H8" title="Glute bridge tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">glute bridge</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">5</div>
+      <div class="ex-info">
+        <div class="ex-name">Calf raises su gradino</div>
+        <div class="ex-subtitle">range completo · 3 sec su · 3 sec giù · microcircolo</div>
+      </div>
+      <div class="ex-reps">3 × 15</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Punta del piede sul bordo del gradino, scendi fino a sentire lo stretch nel polpaccio, poi sali in punta. Range completo. Fondamentale per la pompa venosa e la microcircolazione.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 45 sec
+          </div>
+          <ul class="cues">
+            <li>3 sec su · 1 sec pausa · 3 sec giù</li>
+            <li>Il polpaccio è il "secondo cuore"</li>
+            <li>Puoi farlo su un libro spesso se non hai un gradino</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/rbvyXV1uHhY" title="Calf raises su gradino" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">calf raises · gradino</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Core</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number core">CORE</div>
+      <div class="ex-info">
+        <div class="ex-name">Dead bug</div>
+        <div class="ex-subtitle">controllo lombare · braccio e gamba opposti · lentissimo</div>
+      </div>
+      <div class="ex-reps">3 × 8/lato</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>A terra, schiena piatta, braccia verso il soffitto, ginocchia a 90°. Abbassa lentamente il braccio destro e la gamba sinistra senza toccare il suolo, torna su. La schiena lombare rimane sempre a terra.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 45 sec
+          </div>
+          <ul class="cues">
+            <li>Movimento lentissimo: 4 sec in discesa</li>
+            <li>La schiena lombare NON si alza mai</li>
+            <li>Espira mentre abbassi gli arti</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/bxn9FBrt4-A" title="Dead bug esercizio core" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">dead bug · core</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Stretching finale</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number cool">❄️</div>
+      <div class="ex-info">
+        <div class="ex-name">Stretching: femorali · polpacci · piriforme · flessione avanti</div>
+        <div class="ex-subtitle">respira dentro ogni posizione</div>
+      </div>
+      <div class="ex-reps cool">3 min</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p><strong>1. Flessione avanti da seduto</strong> — gambe tese, allungati verso i piedi. 45 sec. <strong>Questo è l'esercizio principale per toccarti i piedi.</strong></p>
+          <p><strong>2. Stretch polpaccio a muro</strong> — tallone a terra, gamba tesa. 30 sec/lato.</p>
+          <p><strong>3. Figura 4 (piriforme)</strong> — a terra, caviglia sul ginocchio opposto. 30 sec/lato.</p>
+          <p><strong>4. Stretch femorali in piedi</strong> — piede sul muro o sedia, busto verso la gamba. 30 sec/lato.</p>
+          <ul class="cues">
+            <li>Non rimbalzare mai: tieni e respira</li>
+            <li>Ad ogni espirazione lasciati andare ancora un po'</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/fydLSJlGx-0" title="Stretching gambe femorali polpacci" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">stretching lower body</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box sess-b">🦶 <strong>Microcircolazione:</strong> i calf raises lenti sono tra gli esercizi più efficaci per il ritorno venoso. Lo stretching finale con la flessione avanti è il tuo allenamento quotidiano verso i piedi — non saltarlo mai.</div>
+</div>
+
+<!-- ═══════════ SESSION C ═══════════ -->
+<div class="session sess-c" id="sess-c">
+  <div class="sess-intro">
+    <div class="sess-intro-left">
+      <div class="sess-label">Sessione C</div>
+      <div class="sess-title">Cardio Zona 2</div>
+      <div class="sess-meta">~18 min · FC 50–65% · Sensibilità insulinica · Core</div>
+      <div class="sess-chips">
+        <span class="chip">Corpo libero</span>
+        <span class="chip">Elastici</span>
+        <span class="chip">Spazio minimo</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Riscaldamento</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number warm">🔥</div>
+      <div class="ex-info">
+        <div class="ex-name">Marcia sul posto + ginocchia alte lente</div>
+        <div class="ex-subtitle">ritmo lento · respira dal naso</div>
+      </div>
+      <div class="ex-reps warm">2 min</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Alza le ginocchia alternando, coordina con le braccia. Ritmo lento e costante. Se riesci a respirare solo dal naso, sei nella zona giusta.</p>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/ZZZoCNMU48U" title="Marcia sul posto warm up" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">marcia sul posto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Circuito zona 2</div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">1</div>
+      <div class="ex-info">
+        <div class="ex-name">Step touch laterale continuo</div>
+        <div class="ex-subtitle">zona 2 · dovresti riuscire a parlare a frasi intere</div>
+      </div>
+      <div class="ex-reps">3 min</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Passo laterale ritmato, porta i piedi insieme poi allarga. Aggiungi le braccia per alzare leggermente la frequenza cardiaca. Mantieni il ritmo per 3 minuti continui.</p>
+          <ul class="cues">
+            <li>Test zona 2: riesci a parlare senza affanno?</li>
+            <li>Se fatichi a parlare, rallenta</li>
+            <li>Aggiungi le braccia per aumentare l'intensità</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/FnKBisgok64" title="Step touch cardio zona 2" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">step touch · zona 2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">2</div>
+      <div class="ex-info">
+        <div class="ex-name">Marcia ad alta ginocchia</div>
+        <div class="ex-subtitle">ginocchia all'altezza dell'anca · ritmo costante</div>
+      </div>
+      <div class="ex-reps">2 min</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Alza le ginocchia fino all'altezza dell'anca, braccia che pompano. Mantieni il ritmo costante. Non è uno sprint — è zona 2, deve essere sostenibile.</p>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/ZZZoCNMU48U" title="High knees ginocchia alte" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">ginocchia alte</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">3</div>
+      <div class="ex-info">
+        <div class="ex-name">Wall sit isometrico</div>
+        <div class="ex-subtitle">schiena al muro · 90° · respira regolarmente</div>
+      </div>
+      <div class="ex-reps">3 × 30 sec</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Schiena al muro, scendi fino a 90° con le ginocchia. Tieni la posizione per 30 secondi respirando regolarmente. Ottimo lavoro isometrico senza impatto articolare.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 30 sec
+          </div>
+          <ul class="cues">
+            <li>Schiena piatta al muro per tutto il tempo</li>
+            <li>Non appoggiare le mani sulle ginocchia</li>
+            <li>Respira regolarmente — non trattenere il fiato</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/y-wV4Venusw" title="Wall sit tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">wall sit isometrico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">4</div>
+      <div class="ex-info">
+        <div class="ex-name">Affondi laterali</div>
+        <div class="ex-subtitle">interno coscia · ginocchio sopra il piede · petto aperto</div>
+      </div>
+      <div class="ex-reps">2 × 10/lato</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Fai un passo ampio lateralmente, piega il ginocchio del lato a cui stai andando, l'altra gamba rimane tesa. Spingi il sedere indietro, petto aperto. Ottimo per adduttori e glutei.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 45 sec
+          </div>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/gwWg3sd7OMY" title="Affondi laterali tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">affondi laterali</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">5</div>
+      <div class="ex-info">
+        <div class="ex-name">Pompate piede alternate</div>
+        <div class="ex-subtitle">seduto · dorsiflessi e plantarflessi · pompa venosa</div>
+      </div>
+      <div class="ex-reps">2 × 40 rip</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Seduto o in piedi, alza e abbassa la punta del piede alternando i due piedi come premere i pedali. Stimola la microcircolazione periferica, fondamentale per il T1.</p>
+          <ul class="cues">
+            <li>Ritmo moderato, non troppo veloce</li>
+            <li>Puoi farlo anche durante una pausa al computer</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/rbvyXV1uHhY" title="Pompate piede circolazione" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">pompate piede · circolazione</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Core</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number core">CORE</div>
+      <div class="ex-info">
+        <div class="ex-name">Plank con tocco alternato delle spalle</div>
+        <div class="ex-subtitle">no rotazione del bacino · core rigido</div>
+      </div>
+      <div class="ex-reps">3 × 30 sec</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>In posizione di plank alto (mani tese). Alterna: tocca la spalla destra con la mano sinistra, poi viceversa. Il bacino non deve muoversi — è la sfida principale.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 45 sec
+          </div>
+          <ul class="cues">
+            <li>Allarga leggermente i piedi per più stabilità</li>
+            <li>Respira durante il tocco, non trattenere</li>
+            <li>Versione più facile: plank statico classico</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/ePPHDGBSoRc" title="Plank shoulder tap tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">plank shoulder tap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Stretching finale</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number cool">❄️</div>
+      <div class="ex-info">
+        <div class="ex-name">Stretching: flessione avanti · flessori anca · busto</div>
+        <div class="ex-subtitle">respirazione box 4-4-4-4 inclusa</div>
+      </div>
+      <div class="ex-reps cool">3 min</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p><strong>1. Flessione avanti da in piedi</strong> — lascia cadere il busto, testa pesante, ginocchia leggermente flesse. <strong>60 sec</strong> — il più lungo della settimana.</p>
+          <p><strong>2. Affondo basso flessore anca</strong> — ginocchio posteriore a terra, spingi il bacino in avanti. 30 sec/lato.</p>
+          <p><strong>3. Rotazioni busto da seduto</strong> — 30 sec/lato.</p>
+          <p><strong>4. Respirazione box</strong> — inspira 4 sec → trattieni 4 → espira 4 → pausa 4. × 4 volte.</p>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/g_tea8ZNk5A" title="Stretching flessibilità" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">stretching + flessibilità</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box sess-c">❤️ <strong>Zona 2 e T1:</strong> l'esercizio aerobico a bassa intensità è il più efficace per aumentare la sensibilità insulinica senza ipoglicemia reattiva. Se usi CGM, osserva la glicemia durante questa sessione — tipicamente scende gradualmente e rimane stabile.</div>
+</div>
+
+<!-- ═══════════ SESSION D ═══════════ -->
+<div class="session sess-d" id="sess-d">
+  <div class="sess-intro">
+    <div class="sess-intro-left">
+      <div class="sess-label">Sessione D</div>
+      <div class="sess-title">Full Body Compound</div>
+      <div class="sess-meta">~18 min · Core · Grip · Movimenti globali · Dorsali</div>
+      <div class="sess-chips">
+        <span class="chip">Corpo libero</span>
+        <span class="chip">Elastici</span>
+        <span class="chip">Tavolo o porta</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Riscaldamento</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number warm">🔥</div>
+      <div class="ex-info">
+        <div class="ex-name">Rotazioni spalle con elastico + Cat-cow</div>
+        <div class="ex-subtitle">extrarotazione · intrarotazione · 5 respiri cat-cow</div>
+      </div>
+      <div class="ex-reps warm">90 sec</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Gomito a 90° al fianco, ruota il braccio verso l'esterno e verso l'interno con l'elastico leggero. Poi a quattro zampe: inarca e arrotonda la schiena al ritmo del respiro × 5.</p>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/c_sKkgAKSA4" title="Cat cow mobilità schiena" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">cat-cow · mobilità</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Esercizi principali</div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">1</div>
+      <div class="ex-info">
+        <div class="ex-name">Push-up presa stretta</div>
+        <div class="ex-subtitle">tricipiti · mani vicine al centro del petto</div>
+      </div>
+      <div class="ex-reps">3 × 10</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Mani vicine, pollici che si quasi toccano. Gomiti che scivolano vicino ai fianchi in discesa. Isola i tricipiti molto più del push-up standard.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Gomiti vicino al corpo — non aperti lateralmente</li>
+            <li>Corpo rigido come tavola</li>
+            <li>Più difficile del push-up normale: adatta le ripetizioni</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/E5UMtxUQ8NA" title="Push-up presa stretta tricipiti" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">push-up stretto · tricipiti</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">2</div>
+      <div class="ex-info">
+        <div class="ex-name">Rematore con elastico</div>
+        <div class="ex-subtitle">elastico al tavolo · tira i gomiti indietro · dorsali</div>
+      </div>
+      <div class="ex-reps">3 × 12</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Aggancia l'elastico alla gamba del tavolo o a una porta (altezza vita). Busto inclinato in avanti ~45°, tira le maniglie verso i fianchi portando i gomiti indietro. Strizza il dorsale in cima.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Non ruotare il busto: tira simmetrico</li>
+            <li>Strizza le scapole in cima al movimento</li>
+            <li>Fase negativa lenta: 3 sec</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/Y3H17rshgZE" title="Rematore elastico dorsali" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">rematore · elastico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">3</div>
+      <div class="ex-info">
+        <div class="ex-name">Affondo indietro</div>
+        <div class="ex-subtitle">più equilibrio dell'affondo avanti · glutei e femorali</div>
+      </div>
+      <div class="ex-reps">3 × 10/lato</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Da in piedi, fai un passo indietro e scendi con il ginocchio posteriore verso il suolo. Il piede anteriore rimane fermo. Spingi col tallone anteriore per risalire.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Il ginocchio anteriore rimane sopra al piede</li>
+            <li>Busto dritto, non inclinato in avanti</li>
+            <li>Più semplice dell'affondo avanti per l'equilibrio</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/krXwDPKKiSM" title="Affondi indietro tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">affondo indietro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">4</div>
+      <div class="ex-info">
+        <div class="ex-name">Pallof press con elastico</div>
+        <div class="ex-subtitle">anti-rotazione · core laterale · elastico ancorato di lato</div>
+      </div>
+      <div class="ex-reps">3 × 10/lato</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Aggancia l'elastico lateralmente (gamba tavolo o maniglia porta). Tieni le maniglie al petto, poi spingi le braccia in avanti resistendo alla rotazione. Ritorna al petto. Il corpo vuole ruotare — il tuo compito è non farlo.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 45 sec
+          </div>
+          <ul class="cues">
+            <li>Core super rigido durante tutta l'estensione</li>
+            <li>Piedi larghezza spalle, posizione stabile</li>
+            <li>Gira dall'altro lato per l'altro set</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/lqPrSGXfL1Q" title="Pallof press core anti-rotazione" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">pallof press · anti-rotazione</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number">5</div>
+      <div class="ex-info">
+        <div class="ex-name">Dip su sedia</div>
+        <div class="ex-subtitle">tricipiti · second set della sessione D</div>
+      </div>
+      <div class="ex-reps">2 × max−2</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Come in sessione A, ma questa volta vai a cedimento meno 2. Hai già riscaldato bene il tricipite con i push-up stretti — spingi un po' di più.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/6kALZikXxLc" title="Dip su sedia tricipiti" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">dip su sedia · tricipiti</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Core</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number core">CORE</div>
+      <div class="ex-info">
+        <div class="ex-name">Rotella addominale (Ab wheel rollout)</div>
+        <div class="ex-subtitle">da ginocchia · schiena diritta · non cedere in basso</div>
+      </div>
+      <div class="ex-reps">3 × 6-8</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p>Da ginocchia, tieni la rotella con entrambe le mani davanti a te. Fai scorrere la rotella in avanti abbassando il busto verso il suolo, poi torna su contraendo il core. Se non hai la rotella: <strong>hollow hold gambe tese + braccia sopra la testa × 25 sec</strong>.</p>
+          <div class="recovery-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recupero: 60 sec
+          </div>
+          <ul class="cues">
+            <li>Non cedere con la schiena lombare in avanzamento</li>
+            <li>Espira mentre torni su</li>
+            <li>Inizia con range corto: migliorerà settimana dopo settimana</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/9ZCoAbI7uX0" title="Ab wheel rollout tutorial" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">ab wheel rollout · core</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Stretching finale</div>
+  <div class="ex-card" onclick="toggle(this)">
+    <div class="ex-header">
+      <div class="ex-number cool">❄️</div>
+      <div class="ex-info">
+        <div class="ex-name">Stretching: dorsali · quadricipiti · flessione avanti · cat-cow</div>
+        <div class="ex-subtitle">5 respiri per posizione</div>
+      </div>
+      <div class="ex-reps cool">3 min</div>
+      <span class="ex-chevron">▶</span>
+    </div>
+    <div class="ex-body">
+      <div class="ex-body-inner">
+        <div class="ex-desc">
+          <p><strong>1. Flessione in avanti gambe tese</strong> — tieni i polpacci e tira gentilmente. 60 sec.</p>
+          <p><strong>2. Stretch dorsali a tavolo</strong> — braccia tese sul tavolo, abbassa il petto verso il suolo. 30 sec.</p>
+          <p><strong>3. Stretch quadricipiti in piedi</strong> — porta il piede al gluteo, tieniti a una parete. 30 sec/lato.</p>
+          <p><strong>4. Cat-cow lento</strong> — × 8 respirando profondamente.</p>
+          <ul class="cues">
+            <li>Nella flessione avanti: ad ogni espirazione lasciati andare di più</li>
+            <li>Cat-cow: l'uscita perfetta per la schiena dopo il core pesante</li>
+          </ul>
+        </div>
+        <div class="ex-video">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/g_tea8ZNk5A" title="Full body stretching cool down" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-label">stretching full body</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box sess-d">💪 <strong>Progressione loop:</strong> dalla seconda volta che ripeti A→D, aumenta la resistenza dell'elastico o le ripetizioni in 1-2 esercizi per sessione. Non tutto insieme — scegli dove ti senti pronto.</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <h3>Come usare questo piano</h3>
+  Ogni volta che completi D riparti da A. Puoi allenarti tutti i giorni, a giorni alterni, o con pause: il loop continua sempre dal punto dove ti sei fermato. <strong>Per toccarti i piedi:</strong> ogni sessione ha almeno 45-60 sec di flessione in avanti — non saltare mai lo stretching finale. In 4-6 settimane di loop continuo sentirai una differenza importante. <strong>Per il T1:</strong> misura glicemia prima e dopo ogni sessione per le prime settimane.
+</div>
+
 </div>
 
 <script>
-const plan = {
-  split_name: "Piano A-B-C-D bande 3 serie",
-  sessions: [
-    {
-      key: "a",
-      letter: "A",
-      title: "Push",
-      subtitle: "Petto · Spinta · Tricipiti",
-      note: "Sessione spinta: warm-up ridotto, esercizi principali in 3 serie, chiusura con cooldown rapido.",
-      exercises: [
-        { icon:"🔥", name:"Marcia attiva con braccia", short:"Warm-up", details:"Attivazione generale per alzare leggermente il ritmo e preparare spalle e tronco.", cues:["Movimento morbido","Respirazione regolare"], sets:1, reps:20, rest:0, time:false, duration:60 },
-        { icon:"↺", name:"Aperture scapolari e circonduzioni spalle", short:"Warm-up", details:"Mobilità scapolare e spalle per preparare il lavoro di spinta.", cues:["Non irrigidire il collo","Range graduale"], sets:1, reps:10, rest:15, time:false, duration:60 },
-        { icon:"➜", name:"Band chest press in piedi", short:"Petto alto, chiusura forte", details:"Spinta in avanti con banda mantenendo assetto solido e scapole stabili.", cues:["Petto aperto","Addome attivo","Ritorno controllato"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"⬆", name:"Overhead press con banda", short:"Spinta sopra la testa", details:"Press verticale con banda, focus su controllo e traiettoria pulita.", cues:["Glutei contratti","Non inarcare","Spingi in linea"], sets:3, reps:10, rest:25, time:false, duration:60 },
-        { icon:"⬇", name:"Push-up", short:"Tecnica pulita", details:"Piegamenti a corpo libero, mantenendo 1-3 ripetizioni in riserva.", cues:["Corpo rigido","Scendi compatto","Stop prima del cedimento"], sets:3, reps:8, rest:25, time:false, duration:60 },
-        { icon:"△", name:"Overhead triceps extension o kickback", short:"Tricipiti", details:"Lavoro mirato sui tricipiti con gomiti stabili e controllo completo.", cues:["Gomiti fermi","No slanci","Negativa lenta"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"❄️", name:"Stretch petto", short:"Cool-down", details:"Breve allungamento finale per aprire il petto.", cues:["Respira","Non forzare"], sets:1, reps:1, rest:0, time:true, duration:20 },
-        { icon:"❄️", name:"Stretch spalle o tricipiti", short:"Cool-down", details:"Decompressione rapida del distretto appena lavorato.", cues:["Respirazione lenta","Nessun dolore"], sets:1, reps:1, rest:0, time:true, duration:20 }
-      ]
-    },
-    {
-      key: "b",
-      letter: "B",
-      title: "Pull",
-      subtitle: "Schiena · Bicipiti",
-      note: "Sessione tirata: dorsali, parte alta della schiena e bicipiti, con focus su controllo scapolare.",
-      exercises: [
-        { icon:"🔥", name:"Hinge o good morning a corpo libero", short:"Warm-up", details:"Attivazione della catena posteriore prima del lavoro di tirata.", cues:["Bacino indietro","Schiena neutra"], sets:1, reps:10, rest:0, time:false, duration:60 },
-        { icon:"↺", name:"Scapular row a vuoto", short:"Warm-up", details:"Piccolo richiamo di adduzione scapolare.", cues:["Petto aperto","Gomiti morbidi"], sets:1, reps:10, rest:15, time:false, duration:60 },
-        { icon:"⇠", name:"Bent-over row con banda", short:"Dorso", details:"Remata con banda a busto inclinato, con focus sul tirare indietro i gomiti.", cues:["Busto fermo","Scapole attive","Niente strappi"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"↖", name:"One-arm row appoggiato alla sedia", short:"Trazione unilaterale", details:"Lavoro controllato per dorsali e parte media della schiena.", cues:["Controlla la rotazione","Stringi in alto"], sets:3, reps:10, rest:25, time:false, duration:60 },
-        { icon:"⇄", name:"Band pull-apart o high row", short:"Parte alta schiena", details:"Attivazione di deltoidi posteriori e muscolatura scapolare.", cues:["Braccia lunghe","Apri senza slancio"], sets:3, reps:15, rest:25, time:false, duration:60 },
-        { icon:"∪", name:"Biceps curl con banda", short:"Bicipiti", details:"Curl con tensione continua e gomiti fermi.", cues:["No dondolio","Negativa lenta"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"❄️", name:"Stretch dorsali", short:"Cool-down", details:"Allungamento finale della schiena.", cues:["Respira profondo"], sets:1, reps:1, rest:0, time:true, duration:20 },
-        { icon:"❄️", name:"Stretch bicipiti o avambracci", short:"Cool-down", details:"Chiusura rapida del lavoro braccia.", cues:["Non forzare"], sets:1, reps:1, rest:0, time:true, duration:20 }
-      ]
-    },
-    {
-      key: "c",
-      letter: "C",
-      title: "Lower",
-      subtitle: "Gambe · Core",
-      note: "Sessione lower più compatta, con lavoro di squat, affondi, hip hinge e stabilità del core.",
-      exercises: [
-        { icon:"🔥", name:"Squat a corpo libero", short:"Warm-up", details:"Attivazione iniziale per ginocchia, anche e pattern di squat.", cues:["Scendi comodo","Talloni giù"], sets:1, reps:10, rest:0, time:false, duration:60 },
-        { icon:"↺", name:"Good morning a corpo libero", short:"Warm-up", details:"Preparazione della catena posteriore.", cues:["Anca indietro","Schiena neutra"], sets:1, reps:10, rest:15, time:false, duration:60 },
-        { icon:"⬍", name:"Squat con banda sotto i piedi", short:"Squat con resistenza", details:"Versione con banda per aumentare la tensione in salita.", cues:["Discesa controllata","Risalita forte"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"↙", name:"Reverse lunge", short:"Lavoro unilaterale", details:"Affondo indietro per controllo e stabilità.", cues:["Passo pulito","Torace alto"], sets:3, reps:10, rest:25, time:false, duration:60 },
-        { icon:"⌁", name:"Romanian deadlift con banda", short:"Hip hinge", details:"Enfasi su femorali e glutei con schiena neutra.", cues:["Bacino indietro","Tensione costante"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"◎", name:"Dead bug lento", short:"Core controllato", details:"Stabilità del core con movimento lento e respirato.", cues:["Lombare stabile","Espirazione lunga"], sets:3, reps:6, rest:25, time:false, duration:60 },
-        { icon:"❄️", name:"Stretch quadricipiti", short:"Cool-down", details:"Allungamento finale per i quadricipiti.", cues:["Stai morbido"], sets:1, reps:1, rest:0, time:true, duration:20 },
-        { icon:"❄️", name:"Stretch femorali", short:"Cool-down", details:"Defaticamento per la catena posteriore.", cues:["Respira e sciogli"], sets:1, reps:1, rest:0, time:true, duration:20 }
-      ]
-    },
-    {
-      key: "d",
-      letter: "D",
-      title: "Spalle + braccia",
-      subtitle: "Spalle · Braccia · Core",
-      note: "Sessione più estetica e di richiamo: deltoidi, bicipiti, tricipiti e tenuta centrale.",
-      exercises: [
-        { icon:"🔥", name:"Circonduzioni braccia", short:"Warm-up", details:"Attivazione rapida del cingolo scapolare.", cues:["Ampio ma morbido"], sets:1, reps:10, rest:0, time:false, duration:60 },
-        { icon:"↺", name:"Torsioni toraciche controllate", short:"Warm-up", details:"Mobilità del tratto toracico.", cues:["Bacino stabile"], sets:1, reps:10, rest:15, time:false, duration:60 },
-        { icon:"↔", name:"Lateral raise con banda", short:"Deltoidi laterali", details:"Alzate laterali con banda per le spalle.", cues:["No slancio","Salita pulita"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"∪", name:"Biceps curl con banda", short:"Bicipiti", details:"Curl controllato con banda.", cues:["Gomiti fermi"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"△", name:"Overhead triceps extension o kickback", short:"Tricipiti", details:"Tricipiti in lavoro diretto e controllato.", cues:["Gomiti stabili","Contrazione piena"], sets:3, reps:12, rest:25, time:false, duration:60 },
-        { icon:"◌", name:"Hollow hold o tuck hold", short:"Core isometrico", details:"Tenuta centrale in isometria.", cues:["Addome attivo","Respira poco ma bene"], sets:3, reps:1, rest:25, time:true, duration:25 },
-        { icon:"❄️", name:"Stretch spalle", short:"Cool-down", details:"Defaticamento rapido per le spalle.", cues:["Respira"], sets:1, reps:1, rest:0, time:true, duration:20 },
-        { icon:"❄️", name:"Stretch tricipiti", short:"Cool-down", details:"Allungamento conclusivo per i tricipiti.", cues:["Nessuna forzatura"], sets:1, reps:1, rest:0, time:true, duration:20 }
-      ]
-    }
-  ]
-};
-
-const storageKey = 'malgo-workout-style-pwa-v1';
-let current = 'a';
-let timer = { remaining:0, label:'Pronto', interval:null, running:false };
-
-function buildDefaultState() {
-  const sessions = {};
-  plan.sessions.forEach(s => {
-    sessions[s.key] = s.exercises.map(ex => ({ done: Array.from({length: ex.sets}, () => false) }));
-  });
-  return { current:'a', sessions };
-}
-function getState() {
-  try {
-    const raw = localStorage.getItem(storageKey);
-    if (!raw) return buildDefaultState();
-    const parsed = JSON.parse(raw);
-    const fallback = buildDefaultState();
-    fallback.current = parsed.current || 'a';
-    plan.sessions.forEach(s => {
-      if (parsed.sessions && parsed.sessions[s.key]) {
-        fallback.sessions[s.key] = s.exercises.map((ex, idx) => {
-          const incoming = parsed.sessions[s.key][idx];
-          return { done: Array.from({length: ex.sets}, (_, i) => Boolean(incoming?.done?.[i])) };
-        });
-      }
-    });
-    return fallback;
-  } catch { return buildDefaultState(); }
-}
-let state = getState();
-
-function saveState() {
-  state.current = current;
-  localStorage.setItem(storageKey, JSON.stringify(state));
-}
-function totalSetsAll() {
-  return plan.sessions.reduce((a,s)=>a+s.exercises.reduce((x,e)=>x+e.sets,0),0);
-}
-function doneSetsAll() {
-  return plan.sessions.reduce((a,s)=>a+state.sessions[s.key].reduce((x,e)=>x+e.done.filter(Boolean).length,0),0);
-}
-function sessionTotals(key) {
-  const s = plan.sessions.find(x=>x.key===key);
-  const total = s.exercises.reduce((a,e)=>a+e.sets,0);
-  const done = state.sessions[key].reduce((a,e)=>a+e.done.filter(Boolean).length,0);
-  return {total, done};
-}
-function renderStats() {
-  document.getElementById('statExercises').textContent = plan.sessions.reduce((a,s)=>a+s.exercises.length,0);
-  document.getElementById('statDone').textContent = doneSetsAll();
-  document.getElementById('statPct').textContent = Math.round((doneSetsAll()/totalSetsAll())*100) + '%';
-}
-function sessionClass(key){ return 'sess-' + key; }
-
-function buildSessionHTML(s) {
-  const prog = sessionTotals(s.key);
-  const fill = prog.total ? (prog.done / prog.total) * 100 : 0;
-  const items = s.exercises.map((ex, idx) => {
-    const stateEx = state.sessions[s.key][idx];
-    const setPills = stateEx.done.map((done, i) => `<button class="set-pill ${done?'done':''}" onclick="event.stopPropagation(); toggleSet('${s.key}', ${idx}, ${i})">${i+1}</button>`).join('');
-    return `
-      <div class="ex-item" onclick="toggleItem(this)">
-        <div class="ex-summary">
-          <div class="ex-icon">${ex.icon}</div>
-          <div class="ex-info">
-            <div class="ex-name">${ex.name}</div>
-            <div class="ex-short">${ex.short}</div>
-          </div>
-          <div class="ex-sets">${ex.time ? `${ex.sets} × ${ex.duration}s` : `${ex.sets} × ${ex.reps}`}</div>
-          <span class="ex-chevron">▶</span>
-        </div>
-        <div class="ex-detail">
-          <div class="ex-detail-inner">
-            <div class="ex-desc">
-              <p>${ex.details}</p>
-              <ul class="ex-cues">${ex.cues.map(c=>`<li>${c}</li>`).join('')}</ul>
-              <div class="set-row">${setPills}</div>
-              <div class="detail-actions">
-                <button class="btn primary" onclick="event.stopPropagation(); completeNext('${s.key}', ${idx})">Segna prossima serie</button>
-                <button class="btn" onclick="event.stopPropagation(); startExerciseTimer('${s.key}', ${idx})">${ex.time ? 'Avvia timer esercizio' : 'Avvia recupero'}</button>
-                <button class="btn ghost" onclick="event.stopPropagation(); clearExercise('${s.key}', ${idx})">Reset esercizio</button>
-              </div>
-            </div>
-            <div class="mini-card">
-              <div class="mini-label">Dettagli</div>
-              <div class="mini-value">${ex.time ? `Tempo: ${ex.duration}s` : `Reps: ${ex.reps}`}</div>
-              <div class="mini-value" style="margin-top:6px">Serie: ${ex.sets}</div>
-              <div class="mini-value" style="margin-top:6px">Recupero: ${ex.rest}s</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  return `
-    <div class="session ${s.key===current?'active':''}" id="sess-${s.key}">
-      <div class="sess-header ${sessionClass(s.key)}" data-letter="${s.letter}">
-        <div class="sess-letter">Sessione ${s.letter}</div>
-        <div class="sess-title">${s.title}</div>
-        <div class="sess-muscles">${s.subtitle}</div>
-        <div class="session-progress">
-          <div class="progress-meta"><span>Progresso sessione</span><span>${prog.done} / ${prog.total} serie</span></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${fill}%"></div></div>
-        </div>
-      </div>
-      <div class="ex-list">${items}</div>
-      <div class="note-box ${sessionClass(s.key)}"><strong>Nota:</strong> ${s.note}</div>
-    </div>
-  `;
-}
-
-function render() {
-  document.getElementById('sessionsMount').innerHTML = plan.sessions.map(buildSessionHTML).join('');
-  renderStats();
-  document.querySelectorAll('.loop-pill').forEach(el => el.classList.remove('active'));
-  const pill = document.querySelector('.loop-pill.' + current);
-  if (pill) pill.classList.add('active');
+function showSession(s) {
   document.querySelectorAll('.session').forEach(el => el.classList.remove('active'));
-  const sess = document.getElementById('sess-' + current);
-  if (sess) sess.classList.add('active');
-  renderTimer();
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('sess-' + s).classList.add('active');
+  document.querySelector('.tab-btn[data-s="' + s + '"]').classList.add('active');
 }
-function show(key) {
-  current = key;
-  saveState();
-  render();
-}
-function toggleItem(el) {
-  const wasOpen = el.classList.contains('open');
-  el.parentElement.querySelectorAll('.ex-item.open').forEach(e => {
-    e.classList.remove('open');
-    e.querySelector('.ex-detail').style.maxHeight = '0';
+
+function toggle(card) {
+  const wasOpen = card.classList.contains('open');
+  // Close all in this session
+  const session = card.closest('.session');
+  session.querySelectorAll('.ex-card.open').forEach(c => {
+    c.classList.remove('open');
+    c.querySelector('.ex-body').style.maxHeight = '0';
   });
   if (!wasOpen) {
-    el.classList.add('open');
-    const detail = el.querySelector('.ex-detail');
-    detail.style.maxHeight = detail.scrollHeight + 'px';
+    card.classList.add('open');
+    const body = card.querySelector('.ex-body');
+    body.style.maxHeight = body.scrollHeight + 'px';
   }
 }
-function toggleSet(key, exIdx, setIdx) {
-  state.sessions[key][exIdx].done[setIdx] = !state.sessions[key][exIdx].done[setIdx];
-  saveState();
-  render();
-  reopenExercise(key, exIdx);
-}
-function completeNext(key, exIdx) {
-  const exState = state.sessions[key][exIdx];
-  const idx = exState.done.findIndex(v => !v);
-  if (idx !== -1) {
-    exState.done[idx] = true;
-    const ex = plan.sessions.find(s=>s.key===key).exercises[exIdx];
-    if (ex.rest > 0) startTimer(ex.rest, 'Recupero · ' + ex.name);
-    saveState();
-    render();
-    reopenExercise(key, exIdx);
-  }
-}
-function clearExercise(key, exIdx) {
-  const ex = plan.sessions.find(s=>s.key===key).exercises[exIdx];
-  state.sessions[key][exIdx].done = Array.from({length: ex.sets}, () => false);
-  saveState();
-  render();
-  reopenExercise(key, exIdx);
-}
-function reopenExercise(key, exIdx) {
-  setTimeout(() => {
-    if (current !== key) return;
-    const items = document.querySelectorAll('#sess-' + key + ' .ex-item');
-    const el = items[exIdx];
-    if (!el) return;
-    el.classList.add('open');
-    const detail = el.querySelector('.ex-detail');
-    detail.style.maxHeight = detail.scrollHeight + 'px';
-  }, 0);
-}
-
-function toggleTheme() {
-  const html = document.documentElement;
-  const btn = document.getElementById('themeBtn');
-  const meta = document.getElementById('metaThemeColor');
-  if (html.dataset.theme === 'dark') {
-    html.dataset.theme = 'light'; btn.textContent = '☀️'; meta.content = '#f5f4f0';
-  } else {
-    html.dataset.theme = 'dark'; btn.textContent = '🌙'; meta.content = '#0b0b0e';
-  }
-}
-
-function formatTime(seconds) {
-  const s = Math.max(0, Math.floor(seconds));
-  const mm = String(Math.floor(s/60)).padStart(2,'0');
-  const ss = String(s%60).padStart(2,'0');
-  return `${mm}:${ss}`;
-}
-function renderTimer() {
-  document.getElementById('timerLabel').textContent = timer.label;
-  document.getElementById('timerValue').textContent = formatTime(timer.remaining);
-  document.getElementById('pauseBtn').textContent = timer.running ? 'Pausa' : 'Riprendi';
-}
-function startTimer(seconds, label='Timer') {
-  clearInterval(timer.interval);
-  timer.remaining = Math.max(1, Math.floor(seconds));
-  timer.label = label;
-  timer.running = true;
-  renderTimer();
-  timer.interval = setInterval(() => {
-    if (!timer.running) return;
-    timer.remaining -= 1;
-    renderTimer();
-    if (timer.remaining <= 0) {
-      clearInterval(timer.interval);
-      timer.running = false;
-      timer.remaining = 0;
-      renderTimer();
-      beep();
-    }
-  }, 1000);
-}
-function startQuickTimer(s) { startTimer(s, 'Timer rapido · ' + s + 's'); }
-function startExerciseTimer(key, exIdx) {
-  const ex = plan.sessions.find(s=>s.key===key).exercises[exIdx];
-  startTimer(ex.time ? ex.duration : (ex.rest || 60), (ex.time ? 'Esercizio a tempo · ' : 'Recupero · ') + ex.name);
-}
-function toggleTimerPause() {
-  if (timer.remaining <= 0) return;
-  timer.running = !timer.running;
-  renderTimer();
-}
-function adjustTimer(delta) {
-  timer.remaining = Math.max(0, timer.remaining + delta);
-  renderTimer();
-}
-function stopTimer() {
-  clearInterval(timer.interval);
-  timer.interval = null;
-  timer.running = false;
-  timer.remaining = 0;
-  timer.label = 'Pronto';
-  renderTimer();
-}
-function beep() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.frequency.value = 880; osc.type = 'sine';
-    gain.gain.setValueAtTime(0.001, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.15, ctx.currentTime + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
-    osc.start(); osc.stop(ctx.currentTime + 0.42);
-  } catch {}
-}
-function resetCurrentSession() {
-  const s = plan.sessions.find(x=>x.key===current);
-  state.sessions[current] = s.exercises.map(ex => ({ done: Array.from({length: ex.sets}, ()=>false) }));
-  saveState(); render();
-}
-function resetAll() {
-  state = buildDefaultState();
-  current = 'a';
-  stopTimer();
-  saveState();
-  render();
-}
-
-current = state.current || 'a';
-render();
 </script>
 </body>
 </html>
